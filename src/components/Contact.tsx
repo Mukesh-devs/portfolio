@@ -3,18 +3,18 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Mail, Phone, User, Send, CheckCircle } from 'lucide-react';
+import { Mail, User, Send, CheckCircle } from 'lucide-react';
 
 const schema = yup.object().shape({
   name: yup.string().required('Name is required').min(2, 'Name must be at least 2 characters'),
-  phone: yup.string().required('Phone is required').matches(/^[0-9+\-\s()]+$/, 'Invalid phone number'),
   email: yup.string().required('Email is required').email('Invalid email address'),
+  message: yup.string().required('Message is required').min(10, 'Message must be at least 10 characters'),
 });
 
 interface FormData {
   name: string;
-  phone: string;
   email: string;
+  message: string;
 }
 
 const Contact: React.FC = () => {
@@ -30,14 +30,29 @@ const Contact: React.FC = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log('Form data:', data);
-    setIsSubmitted(true);
-    reset();
-    
-    // Reset success message after 3 seconds
-    setTimeout(() => setIsSubmitted(false), 3000);
+    try {
+      // Send email using Google Apps Script
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('email', data.email);
+      formData.append('message', data.message);
+
+      const response = await fetch('https://script.google.com/macros/s/AKfycbzfpd4RjiZ9xe8oo36C88I5ApBCVEW_R7MgE2Hbz2SHWuXosLrCQPwrkMuWQJJPXOE/exec', {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors',
+      });
+
+      // With no-cors mode, we can't read the response, so assume success
+      setIsSubmitted(true);
+      reset();
+      
+      // Reset success message after 3 seconds
+      setTimeout(() => setIsSubmitted(false), 3000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('An error occurred. Please try again.');
+    }
   };
 
   return (
@@ -47,6 +62,35 @@ const Contact: React.FC = () => {
         style={{ backgroundImage: `url('https://images.pexels.com/photos/296114/pexels-photo-296114.jpeg')` }}
       ></div>
       <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"></div>
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute w-[500px] h-[500px] rounded-full bg-pink-400/15 blur-3xl"
+          animate={{
+            x: [0, -100, 0],
+            y: [0, 120, 0],
+          }}
+          transition={{
+            duration: 23,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{ top: '5%', right: '15%' }}
+        />
+        <motion.div
+          className="absolute w-[600px] h-[600px] rounded-full bg-purple-400/15 blur-3xl"
+          animate={{
+            x: [0, 130, 0],
+            y: [0, -110, 0],
+          }}
+          transition={{
+            duration: 27,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{ bottom: '10%', left: '10%' }}
+        />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -165,28 +209,6 @@ const Contact: React.FC = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Phone *
-                  </label>
-                  <div className="relative">
-                    <Phone size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                    <input
-                      {...register('phone')}
-                      type="tel"
-                      className={`w-full pl-10 pr-4 py-3 border rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-                        errors.phone ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
-                      }`}
-                      placeholder="Your phone number"
-                    />
-                  </div>
-                  {errors.phone && (
-                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-                      {errors.phone.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Email *
                   </label>
                   <div className="relative">
@@ -203,6 +225,27 @@ const Contact: React.FC = () => {
                   {errors.email && (
                     <p className="mt-1 text-sm text-red-600 dark:text-red-400">
                       {errors.email.message}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Message *
+                  </label>
+                  <div className="relative">
+                    <textarea
+                      {...register('message')}
+                      rows={5}
+                      className={`w-full px-4 py-3 border rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none ${
+                        errors.message ? 'border-red-500' : 'border-gray-300 dark:border-slate-600'
+                      }`}
+                      placeholder="Your message..."
+                    />
+                  </div>
+                  {errors.message && (
+                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                      {errors.message.message}
                     </p>
                   )}
                 </div>

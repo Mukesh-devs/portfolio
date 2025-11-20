@@ -83,3 +83,28 @@ input:focus-visible,
 textarea:focus-visible {
   @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
 }
+/* 
+.fade-edges {
+  -webkit-mask-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 1) 85%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 1) 85%,
+    rgba(0, 0, 0, 0) 100%
+  );
+} */.fade-edges {
+  -webkit-mask-image:
+    /* LEFT fade */
+    linear-gradient(to right, transparent 0%, black 6%),
+    /* RIGHT fade */
+    linear-gradient(to left, transparent 0%, black 6%),
+    /* TOP fade (less) */
+    linear-gradient(to bottom, transparent 0%, black 6%, black 100%),
+    linear-gradient(to top, transparent 0%, black 6%, black 100%);
+
+  -webkit-mask-composite: intersect;
+          mask-composite: intersect;
+}

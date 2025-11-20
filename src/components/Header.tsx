@@ -60,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection, isScro
                   <motion.div layoutId="profile-picture" transition={transition} className="w-10 h-10">
                     <div className="w-full h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-0.5">
                       <div className="w-full h-full rounded-full bg-gray-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden">
-                        <User size={20} className="text-gray-400 dark:text-gray-500" />
+                        <img src="/profile-picture.png" alt="Mukesh MK" className="w-full h-full object-cover rounded-full" />
                       </div>
                     </div>
                   </motion.div>

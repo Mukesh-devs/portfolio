@@ -21,6 +21,35 @@ const Experience = () => {
         style={{ backgroundImage: `url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop')` }}
       ></div>
       <div className="absolute inset-0 bg-slate-900/80"></div>
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute w-[500px] h-[500px] rounded-full bg-purple-400/15 blur-3xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -100, 0],
+          }}
+          transition={{
+            duration: 22,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{ top: '10%', left: '20%' }}
+        />
+        <motion.div
+          className="absolute w-[550px] h-[550px] rounded-full bg-blue-400/15 blur-3xl"
+          animate={{
+            x: [0, -120, 0],
+            y: [0, 100, 0],
+          }}
+          transition={{
+            duration: 26,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{ bottom: '15%', right: '10%' }}
+        />
+      </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-16 text-center">

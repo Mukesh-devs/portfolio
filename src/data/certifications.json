@@ -1,0 +1,97 @@
+[
+  {
+    "id": "323472322ODBAWSOCP",
+    "name": "Oracle Database@AWS Certified Architect Professional",
+    "description": "Advanced certification demonstrating expertise in Oracle Database architecture, AWS cloud solutions, and enterprise-level system design. Covers database optimization, cloud migration strategies, and scalable architecture patterns.",
+    "imagePath": "/Oracle_Logo.png",
+    "credentialLink": "https://catalog-education.oracle.com/ords/certview/sharebadge?id=7467AA06C17860A11158610D40472CA8F92EDB5C78BC8E395F9E8582151ECC9A",
+    "issuer": "Oracle",
+    "issueDate": "Nov 2025",
+    "skills": ["Oracle Database", "AWS Architecture", "Cloud Migration", "Database Optimization", "System Design", "Scalability"],
+    "highlight skill" : ["Oracle Database", "AWS Architecture"]
+  },
+  {
+    "id": "323448744OCI25NWOCP",
+    "name": "Oracle Cloud Infrastructure 2025 Certified Networking Professional",
+    "description": "Professional certification in OCI networking covering virtual cloud networks, load balancers, VPN connectivity, FastConnect, and network security. Demonstrates proficiency in designing and implementing complex cloud network architectures.",
+    "imagePath": " /Oracle_Logo.png",
+    "credentialLink": "https://catalog-education.oracle.com/ords/certview/sharebadge?id=60BCFF366E29B4864E4FFED42DE87887B179EBED06CDB6F4DE8A64561A69F747",
+    "issuer": "Oracle",
+    "issueDate": "Nov 2025",
+    "skills": ["OCI Networking", "Virtual Cloud Networks", "Load Balancing", "VPN", "Network Security", "Cloud Architecture"],
+    "highlight skill": ["Networking"]
+  },
+  {
+    "id": "323448744OCI25GAIOCP",
+    "name": "Oracle Cloud Infrastructure 2025 Certified Generative AI Professional",
+    "description": "Professional certification demonstrating expertise in Oracle Cloud Generative AI services, including model deployment, fine-tuning, embeddings, vector databases, and secure AI application development on OCI. Validates advanced skills in designing and implementing GenAI-driven cloud solutions.",
+    "imagePath": "/Oracle_Logo.png",
+    "credentialLink": "https://catalog-education.oracle.com/ords/certview/sharebadge?id=E1E3B02E82F3B1204423A9BC5E44CF4FBBD88DE549DACD3EE10FF1551E09F337",
+    "issuer": "Oracle",
+    "issueDate": "Oct 2025",
+    "skills": [
+      "Generative AI",
+      "Large Language Models",
+      "Model Deployment",
+      "Fine-Tuning",
+      "Embeddings",
+      "Vector Databases"
+    ],
+    "highlight skill": ["Generative AI"]
+  },
+  {
+    "id": "f780ed344161",
+    "name": "SQL",
+    "description": "Certification validating advanced SQL skills including complex queries, joins, subqueries, window functions, and database optimization techniques. Demonstrates proficiency in data manipulation and retrieval.",
+    "imagePath": " /hackerrank.png",
+    "credentialLink": "https://www.hackerrank.com/certificates/f780ed344161",
+    "issuer": "HackerRank",
+    "issueDate": "Jan 2025",
+    "skills": ["SQL Queries", "Database Design", "Joins", "Subqueries", "Window Functions", "Query Optimization"],
+    "highlight skill": ["SQL"]
+  },
+  {
+    "id": "f59802650663bd63b97a4b93d40265a3a1684eb7972e8a0ac181464530edeab6",
+    "name": "Docker Foundations Professional Certificate",
+    "description": "Professional certification covering Docker containerization, image creation, container orchestration, Docker Compose, and container networking. Validates expertise in modern DevOps practices and microservices deployment.",
+    "imagePath": " /linkedin-learning.png",
+    "credentialLink": "https://www.linkedin.com/learning/certificates/f59802650663bd63b97a4b93d40265a3a1684eb7972e8a0ac181464530edeab6",
+    "issuer": "LinkedIn",
+    "issueDate": "Jun 2024",
+    "skills": ["Docker", "Containerization", "Docker Compose", "Container Orchestration", "Microservices", "DevOps"],
+    "highlight skill": ["Docker", "Containerization"]
+  },
+  {
+    "id": "fd7e052ae2334636bc1e1e2c3cd05d26",
+    "name": "Data Analytics",
+    "description": "Comprehensive certification in data analytics using Python, covering data manipulation with Pandas, visualization with Matplotlib and Seaborn, statistical analysis, and machine learning fundamentals.",
+    "imagePath": " /ibm.jpg",
+    "credentialLink": "https://courses.tnsdc.skillsnetwork.site/certificates/fd7e052ae2334636bc1e1e2c3cd05d26",
+    "issuer": "IBM",
+    "issueDate": "Jul 2023",
+    "skills": ["Python", "Pandas", "Data Visualization", "Statistical Analysis", "Machine Learning", "Data Manipulation"],
+    "highlight skill": ["Pandas", "Data Visualization"]
+  },
+  {
+    "id": "208O3Bg604016r9bCZ",
+    "name": "DevOps",
+    "description": "Certification covering DevOps principles, CI/CD pipelines, version control with Git, automated testing, deployment strategies, and infrastructure as code. Demonstrates proficiency in modern software delivery practices.",
+    "imagePath": " /Guvi.jpg",
+    "credentialLink": "https://www.guvi.in/share-certificate/208O3Bg604016r9bCZ",
+    "issuer": "GUVI",
+    "issueDate": "Aug 2023",
+    "skills": ["DevOps", "CI/CD", "Git", "Automated Testing", "Deployment", "Infrastructure as Code"],
+    "highlight skill": ["Git", "CI/CD"]
+  },
+  {
+    "id": "NM23AU00093311",
+    "name": "Cloud Essentials",
+    "description": "Foundational certification covering cloud computing concepts, service models (IaaS, PaaS, SaaS), deployment models, cloud security fundamentals, and basic cloud architecture principles.",
+    "imagePath": " /veranda.png",
+    "credentialLink": "https://api.naanmudhalvan.tn.gov.in/api/v1/skillofferings/certificate/validate?certificate_no=NM23AU00093311",
+    "issuer": "Veranda",
+    "issueDate": "Mar 2022",
+    "skills": ["Cloud Computing", "IaaS", "PaaS", "SaaS", "Cloud Security", "Cloud Architecture"],
+    "highlight skill": ["AWS (Basics)"]
+  }
+]

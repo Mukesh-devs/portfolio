@@ -48,7 +48,36 @@ const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <section id="projects" className="py-20 bg-gray-100 dark:bg-slate-800">
+    <section id="projects" className="py-20 bg-white dark:bg-slate-900 relative overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute w-[500px] h-[500px] rounded-full bg-indigo-200/20 dark:bg-indigo-500/10 blur-3xl"
+          animate={{
+            x: [0, -90, 0],
+            y: [0, 110, 0],
+          }}
+          transition={{
+            duration: 21,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{ top: '15%', right: '10%' }}
+        />
+        <motion.div
+          className="absolute w-[550px] h-[550px] rounded-full bg-cyan-200/20 dark:bg-cyan-500/10 blur-3xl"
+          animate={{
+            x: [0, 110, 0],
+            y: [0, -90, 0],
+          }}
+          transition={{
+            duration: 24,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{ bottom: '20%', left: '15%' }}
+        />
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
