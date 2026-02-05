@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Briefcase, GraduationCap } from 'lucide-react';
 
 const experienceData = [
-  { id: 'exp1', title: 'Graduate Studies - Incubation Trainee', organization: 'ZOHO', location: 'Chennai', period: 'Feb 2025 - Jun 2025', description: '6-month intensive training in full-stack development, software engineering practices, and real-world problem solving.', skills: ['Full-Stack Development', 'Software Engineering', 'Problem Solving'] },
+  { id: 'exp1', title: 'Incubation Trainee', organization: 'ZOHO', location: 'Chennai', period: 'Feb 2025 - Jun 2025', description: '6-month intensive training in full-stack development, software engineering practices, and real-world problem solving.', skills: ['Full-Stack Development', 'Software Engineering', 'Problem Solving'] },
   { id: 'exp2', title: 'Technical Careers Program', organization: 'TNS India Foundation (with Capgemini)', location: 'India', period: 'Dec 2023 - May 2024', description: 'Comprehensive training in SQL, Core Java 8, JPA with Hibernate, Git, Spring Boot, and modern frontend technologies.', skills: ['Java', 'Spring Boot', 'SQL', 'JavaScript', 'HTML5', 'CSS3'] },
 ];
 

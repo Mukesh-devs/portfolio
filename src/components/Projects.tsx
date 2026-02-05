@@ -26,7 +26,7 @@ const projects: Project[] = [
       'Memory sharing with privacy controls',
       'Social features and community interaction',
     ],
-    image: 'https://images.pexels.com/photos/1261728/pexels-photo-1261728.jpeg?auto=compress&cs=tinysrgb&w=800'
+    image: 'memorybook.png'
   },
   {
     id: '2',
@@ -39,7 +39,39 @@ const projects: Project[] = [
       'Natural language query processing',
       'Real-time chat-based booking',
     ],
-    image: 'https://images.pexels.com/photos/7991579/pexels-photo-7991579.jpeg?auto=compress&cs=tinysrgb&w=800'
+    image: 'movietime.png'
+  },
+  {
+    id: '3',
+    title: 'MedBot',
+    description: 'An AI-powered health information system that integrates a medical Knowledge Graph with Google\'s Gemini LLM.',
+    longDescription: 'This project is an AI-powered health information system that integrates a medical Knowledge Graph with Google\'s Gemini Large Language Model (LLM) to provide accurate, grounded answers. It uses semantic search to map natural language queries to over 162,000 medical entities, reducing hallucinations by validating AI responses against structured data. The application features a responsive chat interface that not only answers questions but also generates interactive visual graphs to show relationships between diseases, symptoms, and treatments.',
+    technologies: ['Python', 'Flask', 'SQLAlchemy', 'SQLite', 'Google Gemini API', 'Sentence Transformers', 'PyTorch', 'NumPy', 'Scikit-learn', 'HTML5', 'CSS3', 'JavaScript', 'D3.js', 'Flask-JWT-Extended', 'Bcrypt'],
+    features: [
+      'Knowledge Graph Integration: Leverages a massive dataset of over 1 million medical relationships (UMLS based) to ground AI responses in factual data',
+      'Hybrid Search Engine: Combines semantic vector search (using Sentence Transformers) with fuzzy string matching to accurately identify medical terms even with spelling variations',
+      'Live PubMed Evidence: Provides instant credibility by linking validated medical facts directly to their source citations on PubMed, allowing users to verify information with real-world scientific literature.',
+      'Fact Validation: Automatically extracts "Subject-Relation-Object" triples from the AI\'s response and validates them against the knowledge graph to ensure accuracy',
+    ],
+    image: '/medbot.png',
+    githubUrl: 'https://github.com/Mukesh-devs/health'
+  },
+  {
+    id: '4',
+    title: 'Job Crawler',
+    description: 'An advanced automation tool that streamlines the job application process by autonomously crawling major job boards.',
+    longDescription: 'This advanced automation tool streamlines the job application process by autonomously crawling major job boards like LinkedIn and Naukri.com. It goes beyond simple scraping by integrating Google\'s Gemini AI to act as a personal career coach—analyzing job descriptions against the user\'s profile, calculating match scores (1-10), and providing actionable advice. The system features a robust "Stealth Mode" to bypass anti-bot protections and includes an automated document generator that creates custom, ATS-optimized resumes for high-potential roles.',
+    technologies: ['Python 3.9+', 'Selenium', 'Undetected-Chromedriver', 'Google Generative AI (Gemini 2.0/2.5)', 'SQLite', 'Pandas', 'BeautifulSoup4', 'ReportLab', 'Python-Docx', 'Telegram Bot API', 'Asyncio'],
+    features: [
+      'Multi-Platform Scraping: Capable of harvesting job data from multiple sources (LinkedIn, Naukri) using undetected-chromedriver to handle dynamic content and session management',
+      'AI-Powered Job Analysis: Utilizes Google Gemini (Pro/Flash) models to semantically analyze job descriptions, identifying skill gaps and calculating a compatibility score based on the candidate\'s profile',
+      'Smart Model Rotation: Implements a sophisticated quota management system that automatically rotates between different Gemini models (Flash, Pro, Flash-Lite) to ensure continuous operation without hitting API rate limits',
+      'Automated Resume Generation: Dynamically generates tailored PDF and DOCX resumes for high-match jobs, optimizing keywords for Applicant Tracking Systems (ATS) using ReportLab and python-docx',
+      'Stealth & Anti-Bot Architecture: Features advanced evasion techniques including random delays, mouse movement simulation, user-agent rotation, and browser fingerprinting to mimic human behavior and avoid IP bans',
+      'Real-Time Notifications: Integrates with the Telegram Bot API to send instant alerts for high-match jobs, complete with AI analysis summaries and downloadable resume files directly to the user\'s phone',
+    ],
+    image: '/jobcrawler.png',
+    githubUrl: 'https://github.com/Mukesh-devs/job_crawler'
   },
   // Add more projects here
 ];
@@ -160,12 +192,41 @@ const Projects: React.FC = () => {
                 </div>
 
                 <div className="flex gap-4">
-                  <a href={selectedProject.githubUrl || '#'} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors">
-                    <Github size={18} /> GitHub
-                  </a>
-                  <a href={selectedProject.demoUrl || '#'} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
-                    <ExternalLink size={18} /> Live Demo
-                  </a>
+                  {selectedProject.githubUrl ? (
+                    <a 
+                      href={selectedProject.githubUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors"
+                    >
+                      <Github size={18} /> GitHub
+                    </a>
+                  ) : (
+                    <button 
+                      disabled 
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-lg font-medium cursor-not-allowed"
+                    >
+                      <Github size={18} /> Coming Soon
+                    </button>
+                  )}
+                  
+                  {selectedProject.demoUrl ? (
+                    <a 
+                      href={selectedProject.demoUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                    >
+                      <ExternalLink size={18} /> Live Demo
+                    </a>
+                  ) : (
+                    <button 
+                      disabled 
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-lg font-medium cursor-not-allowed"
+                    >
+                      <ExternalLink size={18} /> Coming Soon
+                    </button>
+                  )}
                 </div>
               </div>
             </motion.div>
