@@ -8,11 +8,14 @@ import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Certificates from './components/Certificates';
 import Contact from './components/Contact';
-import Footer from './components/Footer'; // Import the new Footer
+import Footer from './components/Footer';
+import AIChatButton from './components/AIChatButton';
+import AIChatWindow from './components/AIChatWindow';
 
 function App() {
   const [activeSection, setActiveSection] = useState('hero');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +60,8 @@ function App() {
           <Contact />
         </main>
         <Footer />
+        <AIChatButton onClick={() => setIsChatOpen(true)} />
+        <AIChatWindow isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       </div>
     </ThemeProvider>
   );
