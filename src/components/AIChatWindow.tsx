@@ -278,7 +278,7 @@ const TypingIndicator: React.FC = () => (
 );
 
 // ── API Fallback ──
-const API_URL = 'http://127.0.0.1:8000/ask';
+const API_URL = 'https://portfolio-backend-a4n3.onrender.com/ask';
 
 async function fetchFromAPI(question: string): Promise<string> {
   try {
