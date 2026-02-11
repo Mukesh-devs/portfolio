@@ -19,13 +19,13 @@ const AIChatButton: React.FC<AIChatButtonProps> = ({ onClick }) => {
       aria-label="Ask AI"
     >
       {/* Pulse ring */}
-      <span className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 animate-ping opacity-20" />
+      <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#457b9d] to-[#98c1d9] animate-ping opacity-20" />
 
       {/* Glow effect */}
-      <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 opacity-30 blur-md group-hover:opacity-50 transition-opacity duration-300" />
+      <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-[#457b9d] to-[#98c1d9] opacity-30 blur-md group-hover:opacity-50 transition-opacity duration-300" />
 
       {/* Button body */}
-      <span className="relative flex items-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25 dark:shadow-blue-500/40">
+      <span className="relative flex items-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-[#457b9d] to-[#98c1d9] text-white shadow-lg shadow-[#457b9d]/25 dark:shadow-[#457b9d]/40">
         <Sparkles className="w-5 h-5" />
         <span className="text-sm font-medium hidden sm:inline">Ask AI</span>
         <MessageSquare className="w-5 h-5 sm:hidden" />

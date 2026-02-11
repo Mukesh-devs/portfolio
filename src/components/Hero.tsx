@@ -64,7 +64,7 @@ const Hero: React.FC<HeroProps> = ({ isScrolled }) => {
       {/* Animated gradient background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full bg-blue-200/20 dark:bg-blue-500/10 blur-3xl"
+          className="absolute w-[500px] h-[500px] rounded-full bg-[#e29578]/20 dark:bg-[#e29578]/10 blur-3xl"
           animate={{
             x: [0, 100, 0],
             y: [0, -100, 0],
@@ -77,7 +77,7 @@ const Hero: React.FC<HeroProps> = ({ isScrolled }) => {
           style={{ top: '10%', left: '10%' }}
         />
         <motion.div
-          className="absolute w-[600px] h-[600px] rounded-full bg-purple-200/20 dark:bg-purple-500/10 blur-3xl"
+          className="absolute w-[600px] h-[600px] rounded-full bg-[#e29578]/20 dark:bg-[#e29578]/10 blur-3xl"
           animate={{
             x: [0, -150, 0],
             y: [0, 100, 0],
@@ -116,21 +116,23 @@ const Hero: React.FC<HeroProps> = ({ isScrolled }) => {
           style={{ top: '60%', right: '20%' }}
         />
       </div>
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 items-center gap-12 max-w-6xl mx-auto p-8">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 items-center gap-12 md:gap-40 max-w-6xl mx-auto p-8">
         {/* Left Column: Profile Info */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left">
+        <div className="flex flex-col items-center text-center">
           <AnimatePresence>
             {!isScrolled && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <motion.div layoutId="profile-picture" transition={transition} className="w-32 h-32 md:w-60 md:h-60 mx-auto md:mx-0 mb-6 relative">
-                  <div className="w-full h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-1 shadow-lg">
-                    <div className="w-full h-full rounded-full bg-gray-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden">
-                      <img 
-                        src="/profile-picture.png" 
-                        alt="Mukesh MK" 
-                        className="w-full h-full object-cover rounded-full"
-                      />
-                    </div>
+                <motion.div layoutId="profile-picture" transition={transition} className="w-64 h-80 md:w-96 md:h-[28rem] mx-auto mb-6 relative">
+                  {/* Curved bottom shape */}
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[85%] h-[40%] bg-gradient-to-br from-[#457b9d] to-[#98c1d9] rounded-t-full shadow-xl"></div>
+                  
+                  {/* Profile photo overlapping the curve */}
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[95%] h-[85%]">
+                    <img 
+                      src="/mukesh-final.png" 
+                      alt="Mukesh MK" 
+                      className="w-full h-full object-contain object-bottom drop-shadow-2xl"
+                    />
                   </div>
                 </motion.div>
               </motion.div>
@@ -141,7 +143,7 @@ const Hero: React.FC<HeroProps> = ({ isScrolled }) => {
             {!isScrolled && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <motion.div layoutId="profile-name" transition={transition}>
-                  <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
+                  <h1 className="text-4xl md:text-5xl font-bold text-[#4a4e69] dark:text-white">
                     Mukesh MK
                   </h1>
                 </motion.div>
@@ -149,7 +151,7 @@ const Hero: React.FC<HeroProps> = ({ isScrolled }) => {
             )}
           </AnimatePresence>
           <motion.h2
-            className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mt-2 min-h-[2.5rem] md:min-h-[3rem]"
+            className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#e07a5f] to-[#023047] bg-clip-text text-transparent mt-2 min-h-[2.5rem] md:min-h-[3rem] text-center"
           >
             {displayText}
             <motion.span
@@ -161,7 +163,7 @@ const Hero: React.FC<HeroProps> = ({ isScrolled }) => {
             </motion.span>
           </motion.h2>
 
-          <div className="flex justify-center md:justify-start gap-4 mt-6">
+          <div className="flex justify-center gap-4 mt-6">
             {socialLinks.map((link, index) => (
               <motion.a 
                 key={link.label} 
@@ -173,64 +175,29 @@ const Hero: React.FC<HeroProps> = ({ isScrolled }) => {
                 transition={{ delay: 1.1 + index * 0.1 }}
                 whileHover={{ scale: 1.2, y: -5, rotate: 5 }} 
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                className="text-gray-600 dark:text-gray-400 hover:text-[#457b9d] dark:hover:text-[#98c1d9]"
               >
                 <link.icon/>
               </motion.a>
             ))}
           </div>
-           <div className="mt-8 flex justify-center md:justify-start">
-             <motion.button 
-               initial={{ opacity: 0, scale: 0.8 }}
-               animate={{ opacity: 1, scale: 1 }}
-               transition={{ delay: 1.5, type: "spring", stiffness: 200 }}
-               whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2)" }} 
-               whileTap={{ scale: 0.95 }} 
-               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} 
-               className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-shadow"
-             >
-                Get In Touch
-             </motion.button>
-          </div>
         </div>
 
         {/* Right Column: Bio and Actions */}
         <div className="text-center md:text-left">
-          {/* Certification Badges at Top */}
+          {/* Zoho Training Logo at Top */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mb-8 flex flex-wrap gap-8 justify-center md:justify-start items-center"
+            className="mb-8 flex justify-center"
           >
-            <motion.div 
-              initial={{ opacity: 0, rotateY: -90 }}
-              animate={{ opacity: 1, rotateY: 0 }}
-              transition={{ delay: 0.4, duration: 0.6, type: "spring" }}
-              whileHover={{ scale: 1.08, y: -5, rotate: 2 }} 
-              whileTap={{ scale: 0.95 }}
-              className="group relative"
-            >
-              <img 
-                src="/genAIBadge.jpg" 
-                alt="Oracle GenAI Certification" 
-                className="h-32 md:h-40 w-auto object-contain drop-shadow-xl transition-all duration-300"
-              />
-            </motion.div>
-            <motion.div 
-              initial={{ opacity: 0, rotateY: 90 }}
-              animate={{ opacity: 1, rotateY: 0 }}
-              transition={{ delay: 0.6, duration: 0.6, type: "spring" }}
-              whileHover={{ scale: 1.08, y: -5, rotate: -2 }} 
-              whileTap={{ scale: 0.95 }}
-              className="group relative"
-            >
-              <img 
-                src="/AwsBadge.jpg" 
-                alt="AWS Certification" 
-                className="h-32 md:h-40 w-auto object-contain drop-shadow-xl transition-all duration-300"
-              />
-            </motion.div>
+            <motion.img 
+              whileHover={{ scale: 1.05 }}
+              src="/zohoLogo.svg" 
+              alt="Zoho Training" 
+              className="h-16 md:h-20 object-contain opacity-90 hover:opacity-100 transition-opacity drop-shadow-lg"
+            />
           </motion.div>
 
            <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
@@ -247,26 +214,58 @@ const Hero: React.FC<HeroProps> = ({ isScrolled }) => {
               </div>
            </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <motion.a href="/resume.pdf" download="Mukesh_MK_Resume.pdf" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="px-8 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg font-semibold hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-colors flex items-center justify-center gap-2">
+            <motion.a href="/resume.pdf" download="Mukesh_MK_Resume.pdf" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="px-8 py-3 border-2 border-[#457b9d] text-[#457b9d] dark:text-[#98c1d9] rounded-lg font-semibold hover:bg-[#457b9d] hover:text-white dark:hover:bg-[#457b9d] dark:hover:text-white transition-colors flex items-center justify-center gap-2">
               <Download size={20} />
               Download Resume
             </motion.a>
+            <motion.button 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.5, type: "spring", stiffness: 200 }}
+              whileHover={{ scale: 1.05, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.2)" }} 
+              whileTap={{ scale: 0.95 }} 
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} 
+              className="px-8 py-3 bg-gradient-to-r from-[#457b9d] to-[#98c1d9] text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-shadow"
+            >
+              Get In Touch
+            </motion.button>
           </div>
 
-          {/* Zoho Training Logo at Bottom */}
+          {/* Oracle Certification Badges at Bottom */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="mt-6 flex items-center gap-3 justify-center md:justify-start"
+            className="mt-6 flex flex-wrap gap-6 justify-center items-center"
           >
-            <motion.img 
-              whileHover={{ scale: 1.05 }}
-              src="/zohoLogo.svg" 
-              alt="Zoho Training" 
-              className="h-8 object-contain opacity-80 hover:opacity-100 transition-opacity drop-shadow-sm"
-            />
-            <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Trained Professional</span>
+            <motion.div 
+              initial={{ opacity: 0, rotateY: -90 }}
+              animate={{ opacity: 1, rotateY: 0 }}
+              transition={{ delay: 0.6, duration: 0.6, type: "spring" }}
+              whileHover={{ scale: 1.08, y: -3, rotate: 2 }} 
+              whileTap={{ scale: 0.95 }}
+              className="group relative"
+            >
+              <img 
+                src="/genAIBadge.jpg" 
+                alt="Oracle GenAI Certification" 
+                className="h-20 md:h-24 w-auto object-contain drop-shadow-lg transition-all duration-300"
+              />
+            </motion.div>
+            <motion.div 
+              initial={{ opacity: 0, rotateY: 90 }}
+              animate={{ opacity: 1, rotateY: 0 }}
+              transition={{ delay: 0.7, duration: 0.6, type: "spring" }}
+              whileHover={{ scale: 1.08, y: -3, rotate: -2 }} 
+              whileTap={{ scale: 0.95 }}
+              className="group relative"
+            >
+              <img 
+                src="/AwsBadge.jpg" 
+                alt="AWS Certification" 
+                className="h-20 md:h-24 w-auto object-contain drop-shadow-lg transition-all duration-300"
+              />
+            </motion.div>
           </motion.div>
         </div>
       </div>

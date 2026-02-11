@@ -10,7 +10,7 @@ interface ApiStep {
 }
 
 const apiSteps: ApiStep[] = [
-  { id: 'user', label: 'User Request', icon: User, color: 'text-blue-500' },
+  { id: 'user', label: 'User Request', icon: User, color: 'text-[#457b9d]' },
   { id: 'api', label: 'API Gateway', icon: Server, color: 'text-purple-500' },
   { id: 'backend', label: 'Backend Service', icon: Zap, color: 'text-orange-500' },
   { id: 'database', label: 'Database Query', icon: Database, color: 'text-green-500' },
@@ -137,7 +137,7 @@ const ApiSimulator: React.FC = () => {
               whileTap={{ scale: 0.95 }}
               onClick={simulateApiCall}
               disabled={isSimulating}
-              className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full md:w-auto px-6 py-3 bg-gradient-to-r from-[#457b9d] to-[#98c1d9] text-white rounded-lg font-semibold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Play size={20} />
               {isSimulating ? 'Simulating...' : 'Simulate Request'}
@@ -167,7 +167,7 @@ const ApiSimulator: React.FC = () => {
                   >
                     <div className={`w-16 h-16 rounded-full border-2 flex items-center justify-center ${
                       currentStep === index 
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' 
+                        ? 'border-[#98c1d9] bg-[#e8f2f7] dark:bg-[#457b9d]/20' 
                         : 'border-gray-300 dark:border-slate-600'
                     }`}>
                       <step.icon 
@@ -182,7 +182,7 @@ const ApiSimulator: React.FC = () => {
                       <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        className="w-2 h-2 bg-blue-500 rounded-full"
+                        className="w-2 h-2 bg-[#98c1d9] rounded-full"
                       />
                     )}
                   </motion.div>
@@ -219,7 +219,7 @@ const ApiSimulator: React.FC = () => {
                       animate={{ rotate: 360 }}
                       transition={{ repeat: Infinity, duration: 1 }}
                     >
-                      <Clock size={20} className="text-blue-500" />
+                      <Clock size={20} className="text-[#457b9d]" />
                     </motion.div>
                     <span className="text-gray-600 dark:text-gray-300">
                       Processing request...

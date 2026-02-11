@@ -58,9 +58,9 @@ const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection, isScro
               {isScrolled && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                   <motion.div layoutId="profile-picture" transition={transition} className="w-10 h-10">
-                    <div className="w-full h-full rounded-full bg-gradient-to-r from-blue-500 to-purple-600 p-0.5">
-                      <div className="w-full h-full rounded-full bg-gray-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden">
-                        <img src="/profile-picture.png" alt="Mukesh MK" className="w-full h-full object-cover rounded-full" />
+                    <div className="w-full h-full rounded-full bg-gradient-to-r from-[#457b9d] to-[#98c1d9] p-0.5">
+                      <div className="w-full h-full rounded-full bg-white dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                        <img src="/mukesh-final.png" alt="Mukesh MK" className="w-full h-full object-cover object-top rounded-full scale-110" />
                       </div>
                     </div>
                   </motion.div>
@@ -83,7 +83,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection, isScro
           <div className="hidden md:flex items-center gap-6">
             <nav className="flex items-center space-x-6">
               {navItems.map((item) => (
-                <motion.button key={item.id} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => scrollToSection(item.id)} className={`text-sm font-medium transition-colors ${activeSection === item.id ? 'text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'}`}>
+                <motion.button key={item.id} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => scrollToSection(item.id)} className={`text-sm font-medium transition-colors ${activeSection === item.id ? 'text-[#457b9d] dark:text-[#98c1d9]' : 'text-gray-700 dark:text-gray-300 hover:text-[#457b9d] dark:hover:text-[#98c1d9]'}`}>
                   {item.label}
                 </motion.button>
               ))}
@@ -127,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection, setActiveSection, isScro
         {isMenuOpen && (
           <motion.nav initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="md:hidden py-4 border-t border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900">
             {navItems.map((item) => (
-              <motion.button key={item.id} whileHover={{ x: 5 }} onClick={() => scrollToSection(item.id)} className={`block w-full text-left py-2 px-4 rounded-lg text-sm font-medium transition-colors ${activeSection === item.id ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-slate-800'}`}>
+              <motion.button key={item.id} whileHover={{ x: 5 }} onClick={() => scrollToSection(item.id)} className={`block w-full text-left py-2 px-4 rounded-lg text-sm font-medium transition-colors ${activeSection === item.id ? 'text-[#457b9d] dark:text-[#98c1d9] bg-[#e8f2f7] dark:bg-[#457b9d]/20' : 'text-gray-700 dark:text-gray-300 hover:text-[#457b9d] dark:hover:text-[#98c1d9] hover:bg-gray-50 dark:hover:bg-slate-800'}`}>
                 {item.label}
               </motion.button>
             ))}

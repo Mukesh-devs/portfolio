@@ -21,7 +21,7 @@ const Skills = () => {
           style={{ top: '20%', right: '15%' }}
         />
         <motion.div
-          className="absolute w-[550px] h-[550px] rounded-full bg-blue-200/20 dark:bg-blue-500/10 blur-3xl"
+          className="absolute w-[550px] h-[550px] rounded-full bg-[#98c1d9]/20 dark:bg-[#457b9d]/10 blur-3xl"
           animate={{
             x: [0, 120, 0],
             y: [0, -80, 0],

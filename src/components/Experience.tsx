@@ -37,7 +37,7 @@ const Experience = () => {
           style={{ top: '10%', left: '20%' }}
         />
         <motion.div
-          className="absolute w-[550px] h-[550px] rounded-full bg-blue-400/15 blur-3xl"
+          className="absolute w-[550px] h-[550px] rounded-full bg-[#98c1d9]/15 blur-3xl"
           animate={{
             x: [0, -120, 0],
             y: [0, 100, 0],
@@ -94,7 +94,7 @@ const Experience = () => {
         
         {/* Education Timeline */}
         <div className="relative">
-          <div className="absolute left-4 top-0 h-full w-0.5 bg-blue-500/30"></div>
+          <div className="absolute left-4 top-0 h-full w-0.5 bg-[#98c1d9]/30"></div>
           <div className="space-y-12">
             {educationData.map((edu, index) => (
               <motion.div
@@ -105,7 +105,7 @@ const Experience = () => {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ delay: index * 0.2 }}
               >
-                <div className="flex-shrink-0 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white z-10 shadow-lg">
+                <div className="flex-shrink-0 w-8 h-8 bg-[#457b9d] rounded-full flex items-center justify-center text-white z-10 shadow-lg">
                   <GraduationCap size={18} />
                 </div>
                 <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex-1">
@@ -115,7 +115,7 @@ const Experience = () => {
                       <p className="text-blue-600 dark:text-blue-400 font-medium">{edu.organization}</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{edu.period}</p>
                     </div>
-                    <div className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 text-sm font-semibold px-3 py-1 rounded-full ml-4 whitespace-nowrap">
+                    <div className="bg-[#e8f2f7] dark:bg-[#457b9d]/30 text-[#264456] dark:text-[#98c1d9] text-sm font-semibold px-3 py-1 rounded-full ml-4 whitespace-nowrap">
                       {edu.score}
                     </div>
                   </div>

@@ -14,7 +14,7 @@ const About: React.FC = () => {
       {/* Animated gradient background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full bg-blue-200/20 dark:bg-blue-500/10 blur-3xl"
+          className="absolute w-[500px] h-[500px] rounded-full bg-[#98c1d9]/20 dark:bg-[#457b9d]/10 blur-3xl"
           animate={{
             x: [0, 100, 0],
             y: [0, -100, 0],
@@ -27,7 +27,7 @@ const About: React.FC = () => {
           style={{ top: '10%', left: '10%' }}
         />
         <motion.div
-          className="absolute w-[600px] h-[600px] rounded-full bg-purple-200/20 dark:bg-purple-500/10 blur-3xl"
+          className="absolute w-[600px] h-[600px] rounded-full bg-[#a8dadc]/20 dark:bg-[#98c1d9]/10 blur-3xl"
           animate={{
             x: [0, -150, 0],
             y: [0, 100, 0],
@@ -40,7 +40,7 @@ const About: React.FC = () => {
           style={{ top: '40%', right: '10%' }}
         />
         <motion.div
-          className="absolute w-[450px] h-[450px] rounded-full bg-pink-200/20 dark:bg-pink-500/10 blur-3xl"
+          className="absolute w-[450px] h-[450px] rounded-full bg-[#a8dadc]/25 dark:bg-[#a8dadc]/10 blur-3xl"
           animate={{
             x: [0, 100, 0],
             y: [0, 150, 0],
@@ -63,7 +63,7 @@ const About: React.FC = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             About Me
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#457b9d] via-[#98c1d9] to-[#a8dadc] mx-auto rounded-full"></div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -75,7 +75,7 @@ const About: React.FC = () => {
             className="space-y-6"
           >
             <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-slate-700">
-              <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-6">
+              <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#457b9d] to-[#98c1d9] mb-6">
                 Who I Am
               </h3>
               <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -131,7 +131,7 @@ const About: React.FC = () => {
             className="flex items-center justify-center"
           >
             <div className="relative w-full max-w-md">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-400 to-pink-400 rounded-3xl blur-2xl opacity-20"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#457b9d]/60 via-[#98c1d9]/60 to-[#a8dadc]/60 rounded-3xl blur-2xl opacity-20"></div>
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}

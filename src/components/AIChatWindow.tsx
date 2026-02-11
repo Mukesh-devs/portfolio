@@ -224,14 +224,14 @@ const MessageBubble: React.FC<{ message: Message; isLatest: boolean }> = ({ mess
       className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}
     >
       {!isUser && (
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mr-3 mt-1">
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#457b9d] to-[#98c1d9] flex items-center justify-center mr-3 mt-1">
           <Bot className="w-4 h-4 text-white" />
         </div>
       )}
       <div
         className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
           isUser
-            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-br-md'
+            ? 'bg-gradient-to-r from-[#457b9d] to-[#98c1d9] text-white rounded-br-md'
             : 'bg-gray-100 dark:bg-slate-700/80 text-gray-800 dark:text-gray-200 rounded-bl-md'
         }`}
       >
@@ -261,7 +261,7 @@ const TypingIndicator: React.FC = () => (
     exit={{ opacity: 0, y: -10 }}
     className="flex justify-start mb-4"
   >
-    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mr-3">
+    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#457b9d] to-[#98c1d9] flex items-center justify-center mr-3">
       <Bot className="w-4 h-4 text-white" />
     </div>
     <div className="bg-gray-100 dark:bg-slate-700/80 rounded-2xl rounded-bl-md px-5 py-3 flex items-center gap-1.5">
@@ -467,13 +467,13 @@ const AIChatWindow: React.FC<AIChatWindowProps> = ({ isOpen, onClose }) => {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex-shrink-0 flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-blue-600 to-purple-600">
+            <div className="flex-shrink-0 flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-[#457b9d] to-[#98c1d9]">
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
                     <Sparkles className="w-4 h-4 text-white" />
                   </div>
-                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-blue-600" />
+                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-[#457b9d]" />
                 </div>
                 <div>
                   <h2 className="text-sm font-semibold text-white">
@@ -506,7 +506,7 @@ const AIChatWindow: React.FC<AIChatWindowProps> = ({ isOpen, onClose }) => {
                     <button
                       key={s}
                       onClick={() => sendMessage(s)}
-                      className="px-3.5 py-1.5 rounded-full text-xs border border-gray-200 dark:border-slate-600 text-gray-500 dark:text-gray-400 hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200"
+                      className="px-3.5 py-1.5 rounded-full text-xs border border-gray-200 dark:border-slate-600 text-gray-500 dark:text-gray-400 hover:bg-[#e8f2f7] dark:hover:bg-slate-800 hover:border-[#98c1d9] dark:hover:border-[#98c1d9] hover:text-[#457b9d] dark:hover:text-[#98c1d9] transition-all duration-200"
                     >
                       {s}
                     </button>
@@ -542,7 +542,7 @@ const AIChatWindow: React.FC<AIChatWindowProps> = ({ isOpen, onClose }) => {
                     onKeyDown={handleKeyDown}
                     placeholder="Ask anything about Mukesh..."
                     disabled={isLoading}
-                    className="w-full px-4 py-2.5 rounded-full bg-gray-100 dark:bg-slate-800 border-0 text-gray-900 dark:text-white text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-all duration-200 disabled:opacity-50"
+                    className="w-full px-4 py-2.5 rounded-full bg-gray-100 dark:bg-slate-800 border-0 text-gray-900 dark:text-white text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#98c1d9]/40 transition-all duration-200 disabled:opacity-50"
                   />
                 </div>
                 <motion.button
@@ -550,7 +550,7 @@ const AIChatWindow: React.FC<AIChatWindowProps> = ({ isOpen, onClose }) => {
                   disabled={!input.trim() || isLoading}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex-shrink-0 p-2.5 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-shadow duration-200"
+                  className="flex-shrink-0 p-2.5 rounded-full bg-gradient-to-r from-[#457b9d] to-[#98c1d9] text-white disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-shadow duration-200"
                 >
                   {isLoading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />

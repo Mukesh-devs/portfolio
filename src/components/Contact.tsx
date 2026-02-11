@@ -131,7 +131,7 @@ const Contact: React.FC = () => {
                 whileHover={{ x: 5 }}
                 className="flex items-center gap-4"
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#457b9d] to-[#98c1d9] rounded-lg flex items-center justify-center">
                   <Mail size={20} className="text-white" />
                 </div>
                 <div>
@@ -255,7 +255,7 @@ const Contact: React.FC = () => {
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+                  className="w-full px-6 py-3 bg-gradient-to-r from-[#457b9d] to-[#98c1d9] text-white rounded-lg font-semibold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
                 >
                   <Send size={20} />
                   {isSubmitting ? 'Sending...' : 'Send Message'}

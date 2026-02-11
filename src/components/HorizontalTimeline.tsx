@@ -37,7 +37,7 @@ const TimelineCard: React.FC<{ item: TimelineItem; isMobile?: boolean }> = ({ it
         <div className="flex items-start justify-between mb-2">
           <h4 className="text-lg font-bold text-gray-900 dark:text-white flex-1">{item.title}</h4>
           {item.link && (
-            <motion.a whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} href={item.link} target="_blank" rel="noopener noreferrer" className="ml-2 p-1 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded">
+            <motion.a whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} href={item.link} target="_blank" rel="noopener noreferrer" className="ml-2 p-1 text-[#457b9d] dark:text-[#98c1d9] hover:bg-[#e8f2f7] dark:hover:bg-[#457b9d]/20 rounded">
               <ExternalLink size={16} />
             </motion.a>
           )}

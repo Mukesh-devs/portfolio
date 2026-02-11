@@ -21,7 +21,7 @@ const allTechs: Tech[] = [
 
 const TechBlock = ({ tech, isOverlay = false }: { tech: Tech; isOverlay?: boolean }) => {
   const typeColors = {
-    Frontend: 'bg-blue-500',
+    Frontend: 'bg-[#457b9d]',
     Backend: 'bg-green-500',
     Database: 'bg-purple-500',
   };

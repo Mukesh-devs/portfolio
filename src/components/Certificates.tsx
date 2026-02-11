@@ -49,7 +49,7 @@ const CertificationCard = ({ cert, isCentered }: { cert: Certification; isCenter
           whileHover={{ y: -5, boxShadow: "0 30px 60px -15px rgba(0, 0, 0, 0.3)" }}
         >
           {/* Brand Image - 30% */}
-          <div className="relative h-[30%] bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-slate-700 dark:to-slate-600 flex items-center justify-center overflow-hidden">
+          <div className="relative h-[30%] bg-gradient-to-br from-[#e8f2f7] via-[#98c1d9]/20 to-[#a8dadc]/20 dark:from-slate-700 dark:to-slate-600 flex items-center justify-center overflow-hidden">
             <motion.img
               src={cert.imagePath}
               alt={cert.name}
@@ -64,7 +64,7 @@ const CertificationCard = ({ cert, isCentered }: { cert: Certification; isCenter
           {/* Content - 70% */}
           <div className="flex-1 p-5 flex flex-col relative overflow-hidden">
             {/* Colorful gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 opacity-60" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#e8f2f7]/50 via-[#98c1d9]/30 to-[#a8dadc]/30 dark:from-[#457b9d]/20 dark:via-[#98c1d9]/20 dark:to-[#a8dadc]/20 opacity-60" />
             
             <div className="relative z-10 flex flex-col h-full">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white leading-tight mb-3">
@@ -74,7 +74,7 @@ const CertificationCard = ({ cert, isCentered }: { cert: Certification; isCenter
               {/* Brand name and Date on same line */}
               <div className="flex items-center justify-between gap-2 text-sm mb-4 pb-3 border-b border-gray-200 dark:border-slate-600">
                 <div className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+                  <Building2 className="w-4 h-4 text-[#457b9d] dark:text-[#98c1d9] flex-shrink-0" />
                   <span className="text-gray-700 dark:text-gray-300 font-semibold">{cert.issuer}</span>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -93,7 +93,7 @@ const CertificationCard = ({ cert, isCentered }: { cert: Certification; isCenter
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: idx * 0.1 }}
-                      className="bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/40 dark:to-purple-900/40 border border-blue-200 dark:border-blue-700 rounded-lg px-3 py-2 text-center"
+                      className="bg-gradient-to-br from-[#e8f2f7] to-[#98c1d9]/30 dark:from-[#457b9d]/40 dark:to-[#98c1d9]/40 border border-[#98c1d9]/50 dark:border-[#457b9d]/70 rounded-lg px-3 py-2 text-center"
                     >
                       <span className="text-xs font-bold text-blue-800 dark:text-blue-200">{skill}</span>
                     </motion.div>
@@ -361,7 +361,7 @@ const Certificates = () => {
       {/* Animated gradient background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full bg-purple-200/20 dark:bg-purple-500/10 blur-3xl"
+          className="absolute w-[500px] h-[500px] rounded-full bg-[#a8dadc]/20 dark:bg-[#98c1d9]/10 blur-3xl"
           animate={{
             x: [0, 80, 0],
             y: [0, -120, 0],
@@ -445,7 +445,7 @@ const Certificates = () => {
               }}
               className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                 index === currentIndex 
-                  ? 'bg-blue-600 dark:bg-blue-400 w-8' 
+                  ? 'bg-[#457b9d] dark:bg-[#98c1d9] w-8' 
                   : 'bg-gray-300 dark:bg-gray-600'
               }`}
             />

@@ -15,7 +15,7 @@
 
 @layer components {
   .gradient-text {
-    @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[#457b9d] to-[#98c1d9] bg-clip-text text-transparent;
   }
   
   .card-hover {
@@ -48,11 +48,11 @@
 }
 
 .timeline-scroll::-webkit-scrollbar-thumb {
-  @apply bg-blue-500 rounded-full;
+  @apply bg-[#98c1d9] rounded-full;
 }
 
 .timeline-scroll::-webkit-scrollbar-thumb:hover {
-  @apply bg-blue-600;
+  @apply bg-[#457b9d];
 }
 
 /* Smooth horizontal scrolling */
@@ -81,7 +81,7 @@
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
+  @apply outline-none ring-2 ring-[#98c1d9] ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
 }
 /* 
 .fade-edges {
