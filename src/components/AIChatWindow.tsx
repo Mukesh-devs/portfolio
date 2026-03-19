@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Sparkles, Bot, User, Loader2, X } from 'lucide-react';
+import { Send, Sparkles, Bot, User, Loader2, X, Mail, Shield } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -14,6 +14,8 @@ interface AIChatWindowProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+type AuthState = 'unauthenticated' | 'awaiting-otp' | 'authenticated';
 
 // ── Portfolio Knowledge Base ──
 const PORTFOLIO_CONTEXT = `
@@ -305,24 +307,114 @@ const SUGGESTIONS = [
 
 // ── Main Chat Window ──
 const AIChatWindow: React.FC<AIChatWindowProps> = ({ isOpen, onClose }) => {
+  // Auth state
+  const [authState, setAuthState] = useState<AuthState>('unauthenticated');
+  const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [authLoading, setAuthLoading] = useState(false);
+
+  // Chat state
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const otpInputRef = useRef<HTMLInputElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
+  // ── OTP Functions ──
+  const sendOTP = async () => {
+    if (!email.trim()) {
+      setAuthError('Please enter a valid email address');
+      return;
+    }
+
+    setAuthLoading(true);
+    setAuthError('');
+
+    try {
+      const res = await fetch('https://portfolio-backend-a4n3.onrender.com/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || 'Failed to send OTP');
+      }
+
+      setAuthState('awaiting-otp');
+      setAuthError('');
+      setTimeout(() => otpInputRef.current?.focus(), 100);
+    } catch (error: any) {
+      setAuthError(error.message || 'Failed to send OTP. Please try again.');
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const verifyOTP = async () => {
+    if (!otp.trim()) {
+      setAuthError('Please enter the OTP code');
+      return;
+    }
+
+    setAuthLoading(true);
+    setAuthError('');
+
+    try {
+      const res = await fetch('https://portfolio-backend-a4n3.onrender.com/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim(), otp: otp.trim() }),
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || 'Invalid OTP');
+      }
+
+      setAuthState('authenticated');
+      setAuthError('');
+      setOtp('');
+    } catch (error: any) {
+      setAuthError(error.message || 'Invalid OTP. Please try again.');
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  const handleEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    sendOTP();
+  };
+
+  const handleOTPSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    verifyOTP();
+  };
+
+  const resetAuth = () => {
+    setAuthState('unauthenticated');
+    setEmail('');
+    setOtp('');
+    setAuthError('');
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [messages, scrollToBottom]);
 
-  // Welcome message
+  // Welcome message - only when authenticated
   useEffect(() => {
-    if (isOpen && messages.length === 0) {
+    if (isOpen && authState === 'authenticated' && messages.length === 0) {
       const welcomeMsg: Message = {
         id: 'welcome',
         role: 'assistant',
@@ -332,14 +424,22 @@ const AIChatWindow: React.FC<AIChatWindowProps> = ({ isOpen, onClose }) => {
       };
       setMessages([welcomeMsg]);
     }
-  }, [isOpen]);
+  }, [isOpen, authState]);
 
-  // Focus input on open
+  // Focus appropriate input on open
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 400);
+      setTimeout(() => {
+        if (authState === 'unauthenticated') {
+          emailInputRef.current?.focus();
+        } else if (authState === 'awaiting-otp') {
+          otpInputRef.current?.focus();
+        } else {
+          inputRef.current?.focus();
+        }
+      }, 400);
     }
-  }, [isOpen]);
+  }, [isOpen, authState]);
 
   // Browser back button support + Escape key
   useEffect(() => {
@@ -372,6 +472,11 @@ const AIChatWindow: React.FC<AIChatWindowProps> = ({ isOpen, onClose }) => {
     } else {
       onClose();
     }
+    // Reset auth state on close
+    setTimeout(() => {
+      resetAuth();
+      setMessages([]);
+    }, 300);
   }, [onClose]);
 
   const sendMessage = useCallback(
@@ -471,16 +576,24 @@ const AIChatWindow: React.FC<AIChatWindowProps> = ({ isOpen, onClose }) => {
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-white" />
+                    {authState === 'authenticated' ? (
+                      <Sparkles className="w-4 h-4 text-white" />
+                    ) : (
+                      <Shield className="w-4 h-4 text-white" />
+                    )}
                   </div>
-                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-[#457b9d]" />
+                  {authState === 'authenticated' && (
+                    <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-[#457b9d]" />
+                  )}
                 </div>
                 <div>
                   <h2 className="text-sm font-semibold text-white">
-                    Portfolio AI
+                    {authState === 'authenticated' ? 'Portfolio AI' : 'Verify Access'}
                   </h2>
                   <p className="text-[11px] text-blue-100/80">
-                    Ask me about Mukesh
+                    {authState === 'authenticated' 
+                      ? 'Ask me about Mukesh' 
+                      : 'Secure authentication required'}
                   </p>
                 </div>
               </div>
@@ -493,73 +606,208 @@ const AIChatWindow: React.FC<AIChatWindowProps> = ({ isOpen, onClose }) => {
               </button>
             </div>
 
-            {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto ai-chat-scroll px-4 py-5 space-y-1">
-              {messages.length <= 1 && (
+            {/* Conditional Content: Auth Forms or Chat */}
+            {authState === 'authenticated' ? (
+              <>
+                {/* Messages Area */}
+                <div className="flex-1 overflow-y-auto ai-chat-scroll px-4 py-5 space-y-1">
+                  {messages.length <= 1 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.8 }}
+                      className="flex flex-wrap gap-2 justify-center mt-2 mb-4"
+                    >
+                      {SUGGESTIONS.map((s) => (
+                        <button
+                          key={s}
+                          onClick={() => sendMessage(s)}
+                          className="px-3.5 py-1.5 rounded-full text-xs border border-gray-200 dark:border-slate-600 text-gray-500 dark:text-gray-400 hover:bg-[#e8f2f7] dark:hover:bg-slate-800 hover:border-[#98c1d9] dark:hover:border-[#98c1d9] hover:text-[#457b9d] dark:hover:text-[#98c1d9] transition-all duration-200"
+                        >
+                          {s}
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+
+                  {messages.map((msg, idx) => (
+                    <MessageBubble
+                      key={msg.id}
+                      message={msg}
+                      isLatest={idx === messages.length - 1}
+                    />
+                  ))}
+
+                  <AnimatePresence>{isLoading && <TypingIndicator />}</AnimatePresence>
+
+                  <div ref={messagesEndRef} />
+                </div>
+
+                {/* Input Area */}
+                <div className="flex-shrink-0 px-4 pb-4 pt-2 bg-white dark:bg-slate-900">
+                  <form onSubmit={handleSubmit} className="flex items-center gap-2.5">
+                    <div className="flex-1 relative">
+                      <input
+                        ref={inputRef}
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        placeholder="Ask anything about Mukesh..."
+                        disabled={isLoading}
+                        className="w-full px-4 py-2.5 rounded-full bg-gray-100 dark:bg-slate-800 border-0 text-gray-900 dark:text-white text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#98c1d9]/40 transition-all duration-200 disabled:opacity-50"
+                      />
+                    </div>
+                    <motion.button
+                      type="submit"
+                      disabled={!input.trim() || isLoading}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex-shrink-0 p-2.5 rounded-full bg-gradient-to-r from-[#457b9d] to-[#98c1d9] text-white disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-shadow duration-200"
+                    >
+                      {isLoading ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Send className="w-4 h-4" />
+                      )}
+                    </motion.button>
+                  </form>
+                </div>
+              </>
+            ) : (
+              /* Auth Forms */
+              <div className="flex-1 flex items-center justify-center px-6 py-8 bg-gradient-to-br from-gray-50 to-blue-50/30 dark:from-slate-900 dark:to-slate-800/50">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8 }}
-                  className="flex flex-wrap gap-2 justify-center mt-2 mb-4"
+                  className="w-full max-w-sm"
                 >
-                  {SUGGESTIONS.map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => sendMessage(s)}
-                      className="px-3.5 py-1.5 rounded-full text-xs border border-gray-200 dark:border-slate-600 text-gray-500 dark:text-gray-400 hover:bg-[#e8f2f7] dark:hover:bg-slate-800 hover:border-[#98c1d9] dark:hover:border-[#98c1d9] hover:text-[#457b9d] dark:hover:text-[#98c1d9] transition-all duration-200"
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-
-              {messages.map((msg, idx) => (
-                <MessageBubble
-                  key={msg.id}
-                  message={msg}
-                  isLatest={idx === messages.length - 1}
-                />
-              ))}
-
-              <AnimatePresence>{isLoading && <TypingIndicator />}</AnimatePresence>
-
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Input Area – clean, no border divider */}
-            <div className="flex-shrink-0 px-4 pb-4 pt-2 bg-white dark:bg-slate-900">
-              <form
-                onSubmit={handleSubmit}
-                className="flex items-center gap-2.5"
-              >
-                <div className="flex-1 relative">
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    placeholder="Ask anything about Mukesh..."
-                    disabled={isLoading}
-                    className="w-full px-4 py-2.5 rounded-full bg-gray-100 dark:bg-slate-800 border-0 text-gray-900 dark:text-white text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#98c1d9]/40 transition-all duration-200 disabled:opacity-50"
-                  />
-                </div>
-                <motion.button
-                  type="submit"
-                  disabled={!input.trim() || isLoading}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex-shrink-0 p-2.5 rounded-full bg-gradient-to-r from-[#457b9d] to-[#98c1d9] text-white disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-shadow duration-200"
-                >
-                  {isLoading ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                  {authState === 'unauthenticated' ? (
+                    /* Email Input Form */
+                    <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-slate-700">
+                      <div className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-[#457b9d] to-[#98c1d9] mx-auto mb-4">
+                        <Mail className="w-6 h-6 text-white" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center mb-2">
+                        Verify Your Email
+                      </h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-6">
+                        Enter your email to receive a verification code
+                      </p>
+                      
+                      <form onSubmit={handleEmailSubmit} className="space-y-4">
+                        <div>
+                          <input
+                            ref={emailInputRef}
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="your.email@example.com"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#98c1d9]/40 transition-all"
+                            required
+                          />
+                        </div>
+                        
+                        {authError && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-xs text-red-500 dark:text-red-400 text-center"
+                          >
+                            {authError}
+                          </motion.p>
+                        )}
+                        
+                        <button
+                          type="submit"
+                          disabled={authLoading}
+                          className="w-full py-3 rounded-lg bg-gradient-to-r from-[#457b9d] to-[#98c1d9] text-white font-medium text-sm hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        >
+                          {authLoading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                              Sending...
+                            </>
+                          ) : (
+                            <>
+                              <Send className="w-4 h-4" />
+                              Send Verification Code
+                            </>
+                          )}
+                        </button>
+                      </form>
+                    </div>
                   ) : (
-                    <Send className="w-4 h-4" />
+                    /* OTP Input Form */
+                    <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-slate-700">
+                      <div className="flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-[#457b9d] to-[#98c1d9] mx-auto mb-4">
+                        <Shield className="w-6 h-6 text-white" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-center mb-2">
+                        Enter Verification Code
+                      </h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-1">
+                        We've sent a code to
+                      </p>
+                      <p className="text-sm font-medium text-[#457b9d] dark:text-[#98c1d9] text-center mb-6">
+                        {email}
+                      </p>
+                      
+                      <form onSubmit={handleOTPSubmit} className="space-y-4">
+                        <div>
+                          <input
+                            ref={otpInputRef}
+                            type="text"
+                            value={otp}
+                            onChange={(e) => setOtp(e.target.value)}
+                            placeholder="Enter 6-digit code"
+                            maxLength={6}
+                            className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 text-gray-900 dark:text-white text-sm text-center tracking-widest placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#98c1d9]/40 transition-all font-mono"
+                            required
+                          />
+                        </div>
+                        
+                        {authError && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-xs text-red-500 dark:text-red-400 text-center"
+                          >
+                            {authError}
+                          </motion.p>
+                        )}
+                        
+                        <button
+                          type="submit"
+                          disabled={authLoading}
+                          className="w-full py-3 rounded-lg bg-gradient-to-r from-[#457b9d] to-[#98c1d9] text-white font-medium text-sm hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        >
+                          {authLoading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                              Verifying...
+                            </>
+                          ) : (
+                            <>
+                              <Shield className="w-4 h-4" />
+                              Verify Code
+                            </>
+                          )}
+                        </button>
+                        
+                        <button
+                          type="button"
+                          onClick={resetAuth}
+                          className="w-full text-xs text-gray-500 dark:text-gray-400 hover:text-[#457b9d] dark:hover:text-[#98c1d9] transition-colors"
+                        >
+                          Use a different email
+                        </button>
+                      </form>
+                    </div>
                   )}
-                </motion.button>
-              </form>
-            </div>
+                </motion.div>
+              </div>
+            )}
           </motion.div>
         </motion.div>
       )}
